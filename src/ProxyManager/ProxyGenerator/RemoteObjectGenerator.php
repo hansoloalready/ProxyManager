@@ -18,13 +18,15 @@
 
 namespace ProxyManager\ProxyGenerator;
 
+use ProxyManager\ProxyGenerator\RemoteObject\MethodGenerator\RemoteObjectMethod;
+use ProxyManager\ProxyGenerator\RemoteObject\MethodGenerator\StaticProxyConstructor;
+use ProxyManager\ProxyGenerator\RemoteObject\PropertyGenerator\AdapterProperty;
 use ProxyManager\ProxyGenerator\RemoteObject\MethodGenerator\Constructor;
 use ProxyManager\ProxyGenerator\RemoteObject\MethodGenerator\MagicGet;
 use ProxyManager\ProxyGenerator\RemoteObject\MethodGenerator\MagicIsset;
 use ProxyManager\ProxyGenerator\RemoteObject\MethodGenerator\MagicSet;
 use ProxyManager\ProxyGenerator\RemoteObject\MethodGenerator\MagicUnset;
 use ProxyManager\ProxyGenerator\RemoteObject\MethodGenerator\RemoteObjectMethod;
-use ProxyManager\ProxyGenerator\RemoteObject\PropertyGenerator\AdapterProperty;
 use ProxyManager\ProxyGenerator\Util\ProxiedMethodsFilter;
 use ReflectionClass;
 use Zend\Code\Generator\ClassGenerator;
@@ -75,6 +77,7 @@ class RemoteObjectGenerator implements ProxyGeneratorInterface
         }
 
         $classGenerator->addMethodFromGenerator(new Constructor($originalClass, $adapter));
+        $classGenerator->addMethodFromGenerator(new StaticProxyConstructor($originalClass, $adapter));
         $classGenerator->addMethodFromGenerator(new MagicGet($originalClass, $adapter));
         $classGenerator->addMethodFromGenerator(new MagicSet($originalClass, $adapter));
         $classGenerator->addMethodFromGenerator(new MagicIsset($originalClass, $adapter));
