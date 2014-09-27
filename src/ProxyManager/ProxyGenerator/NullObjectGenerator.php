@@ -61,7 +61,6 @@ class NullObjectGenerator implements ProxyGeneratorInterface
             );
         }
 
-        $classGenerator->addMethodFromGenerator(new Constructor($originalClass));
         $classGenerator->addMethodFromGenerator(new StaticProxyConstructor($originalClass));
     }
 }

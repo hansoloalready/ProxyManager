@@ -76,7 +76,6 @@ class RemoteObjectGenerator implements ProxyGeneratorInterface
             );
         }
 
-        $classGenerator->addMethodFromGenerator(new Constructor($originalClass, $adapter));
         $classGenerator->addMethodFromGenerator(new StaticProxyConstructor($originalClass, $adapter));
         $classGenerator->addMethodFromGenerator(new MagicGet($originalClass, $adapter));
         $classGenerator->addMethodFromGenerator(new MagicSet($originalClass, $adapter));

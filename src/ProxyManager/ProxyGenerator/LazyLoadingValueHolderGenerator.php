@@ -83,7 +83,6 @@ class LazyLoadingValueHolderGenerator implements ProxyGeneratorInterface
             );
         }
 
-        $classGenerator->addMethodFromGenerator(new Constructor($originalClass, $initializer));
         $classGenerator->addMethodFromGenerator(new StaticProxyConstructor($originalClass, $initializer));
 
         $classGenerator->addMethodFromGenerator(
