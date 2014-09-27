@@ -47,7 +47,7 @@ class AccessInterceptorValueHolderFunctionalTest extends PHPUnit_Framework_TestC
         $proxyName = $this->generateProxy($className);
 
         /* @var $proxy \ProxyManager\Proxy\AccessInterceptorInterface|\ProxyManager\Proxy\ValueHolderInterface */
-        $proxy     = new $proxyName($instance);
+        $proxy     = $proxyName::staticProxyConstructor($instance);
 
         $this->assertSame($instance, $proxy->getWrappedValueHolderValue());
         $this->assertSame($expectedValue, call_user_func_array(array($proxy, $method), $params));
@@ -89,7 +89,7 @@ class AccessInterceptorValueHolderFunctionalTest extends PHPUnit_Framework_TestC
         $proxyName = $this->generateProxy($className);
 
         /* @var $proxy \ProxyManager\Proxy\AccessInterceptorInterface|\ProxyManager\Proxy\ValueHolderInterface */
-        $proxy     = new $proxyName($instance);
+        $proxy     = $proxyName::staticProxyConstructor($instance);
         $listener  = $this->getMock('stdClass', array('__invoke'));
         $listener
             ->expects($this->once())
@@ -126,7 +126,7 @@ class AccessInterceptorValueHolderFunctionalTest extends PHPUnit_Framework_TestC
     {
         $proxyName = $this->generateProxy($className);
         /* @var $proxy \ProxyManager\Proxy\AccessInterceptorInterface|\ProxyManager\Proxy\ValueHolderInterface */
-        $proxy     = unserialize(serialize(new $proxyName($instance)));
+        $proxy     = unserialize(serialize($proxyName::staticProxyConstructor($instance)));
 
         $this->assertSame($expectedValue, call_user_func_array(array($proxy, $method), $params));
         $this->assertEquals($instance, $proxy->getWrappedValueHolderValue());
@@ -140,7 +140,7 @@ class AccessInterceptorValueHolderFunctionalTest extends PHPUnit_Framework_TestC
         $proxyName = $this->generateProxy($className);
 
         /* @var $proxy \ProxyManager\Proxy\AccessInterceptorInterface|\ProxyManager\Proxy\ValueHolderInterface */
-        $proxy     = new $proxyName($instance);
+        $proxy     = $proxyName::staticProxyConstructor($instance);
         $cloned    = clone $proxy;
 
         $this->assertNotSame($proxy->getWrappedValueHolderValue(), $cloned->getWrappedValueHolderValue());
@@ -329,13 +329,13 @@ class AccessInterceptorValueHolderFunctionalTest extends PHPUnit_Framework_TestC
         return array(
             array(
                 $instance1,
-                new $proxyName1($instance1),
+                $proxyName1::staticProxyConstructor($instance1),
                 'publicProperty',
                 'publicPropertyDefault',
             ),
             array(
                 $instance2,
-                unserialize(serialize(new $proxyName2($instance2))),
+                unserialize(serialize($proxyName2::staticProxyConstructor($instance2))),
                 'publicProperty',
                 'publicPropertyDefault',
             ),
