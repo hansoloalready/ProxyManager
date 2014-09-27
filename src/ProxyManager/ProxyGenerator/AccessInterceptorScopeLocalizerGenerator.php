@@ -30,6 +30,7 @@ use ProxyManager\ProxyGenerator\AccessInterceptorScopeLocalizer\MethodGenerator\
 use ProxyManager\ProxyGenerator\AccessInterceptorScopeLocalizer\MethodGenerator\MagicSet;
 use ProxyManager\ProxyGenerator\AccessInterceptorScopeLocalizer\MethodGenerator\MagicSleep;
 use ProxyManager\ProxyGenerator\AccessInterceptorScopeLocalizer\MethodGenerator\MagicUnset;
+use ProxyManager\ProxyGenerator\AccessInterceptorScopeLocalizer\MethodGenerator\StaticProxyConstructor;
 use ProxyManager\ProxyGenerator\Util\ProxiedMethodsFilter;
 use ReflectionClass;
 use Zend\Code\Generator\ClassGenerator;
@@ -77,6 +78,9 @@ class AccessInterceptorScopeLocalizerGenerator implements ProxyGeneratorInterfac
 
         $classGenerator->addMethodFromGenerator(
             new Constructor($originalClass, $prefixInterceptors, $suffixInterceptors)
+        );
+        $classGenerator->addMethodFromGenerator(
+            new StaticProxyConstructor($originalClass, $prefixInterceptors, $suffixInterceptors)
         );
         $classGenerator->addMethodFromGenerator(new SetMethodPrefixInterceptor($prefixInterceptors));
         $classGenerator->addMethodFromGenerator(new SetMethodSuffixInterceptor($suffixInterceptors));
