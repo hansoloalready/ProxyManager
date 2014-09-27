@@ -30,6 +30,7 @@ use ProxyManager\ProxyGenerator\AccessInterceptorValueHolder\MethodGenerator\Mag
 use ProxyManager\ProxyGenerator\AccessInterceptorValueHolder\MethodGenerator\MagicIsset;
 use ProxyManager\ProxyGenerator\AccessInterceptorValueHolder\MethodGenerator\MagicSet;
 use ProxyManager\ProxyGenerator\AccessInterceptorValueHolder\MethodGenerator\MagicUnset;
+use ProxyManager\ProxyGenerator\AccessInterceptorValueHolder\MethodGenerator\StaticProxyConstructor;
 use ProxyManager\ProxyGenerator\LazyLoadingValueHolder\PropertyGenerator\ValueHolderProperty;
 use ProxyManager\ProxyGenerator\PropertyGenerator\PublicPropertiesMap;
 use ProxyManager\ProxyGenerator\Util\ProxiedMethodsFilter;
@@ -86,6 +87,9 @@ class AccessInterceptorValueHolderGenerator implements ProxyGeneratorInterface
 
         $classGenerator->addMethodFromGenerator(
             new Constructor($originalClass, $valueHolder, $prefixInterceptors, $suffixInterceptors)
+        );
+        $classGenerator->addMethodFromGenerator(
+            new StaticProxyConstructor($originalClass, $valueHolder, $prefixInterceptors, $suffixInterceptors)
         );
         $classGenerator->addMethodFromGenerator(
             new GetWrappedValueHolderValue($valueHolder)
