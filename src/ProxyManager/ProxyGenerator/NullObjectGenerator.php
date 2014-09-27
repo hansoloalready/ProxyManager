@@ -19,6 +19,7 @@
 namespace ProxyManager\ProxyGenerator;
 
 use ProxyManager\ProxyGenerator\NullObject\MethodGenerator\Constructor;
+use ProxyManager\ProxyGenerator\NullObject\MethodGenerator\StaticProxyConstructor;
 use ProxyManager\ProxyGenerator\NullObject\MethodGenerator\NullObjectMethodInterceptor;
 use ProxyManager\ProxyGenerator\Util\ProxiedMethodsFilter;
 use ReflectionClass;
@@ -61,5 +62,6 @@ class NullObjectGenerator implements ProxyGeneratorInterface
         }
 
         $classGenerator->addMethodFromGenerator(new Constructor($originalClass));
+        $classGenerator->addMethodFromGenerator(new StaticProxyConstructor($originalClass));
     }
 }
