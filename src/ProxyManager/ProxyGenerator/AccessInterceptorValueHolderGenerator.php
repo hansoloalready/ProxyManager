@@ -86,9 +86,6 @@ class AccessInterceptorValueHolderGenerator implements ProxyGeneratorInterface
         }
 
         $classGenerator->addMethodFromGenerator(
-            new Constructor($originalClass, $valueHolder, $prefixInterceptors, $suffixInterceptors)
-        );
-        $classGenerator->addMethodFromGenerator(
             new StaticProxyConstructor($originalClass, $valueHolder, $prefixInterceptors, $suffixInterceptors)
         );
         $classGenerator->addMethodFromGenerator(
