@@ -18,6 +18,10 @@
 
 namespace ProxyManager\ProxyGenerator;
 
+use ProxyManager\ProxyGenerator\LazyLoading\MethodGenerator\StaticProxyConstructor;
+use ProxyManager\ProxyGenerator\PropertyGenerator\PublicPropertiesMap;
+use ProxyManager\ProxyGenerator\Util\ProxiedMethodsFilter;
+use ProxyManager\ProxyGenerator\ValueHolder\MethodGenerator\GetWrappedValueHolderValue;
 use ProxyManager\ProxyGenerator\AccessInterceptor\MethodGenerator\MagicWakeup;
 use ProxyManager\ProxyGenerator\LazyLoading\MethodGenerator\Constructor;
 use ProxyManager\ProxyGenerator\LazyLoadingValueHolder\MethodGenerator\GetProxyInitializer;
@@ -80,6 +84,7 @@ class LazyLoadingValueHolderGenerator implements ProxyGeneratorInterface
         }
 
         $classGenerator->addMethodFromGenerator(new Constructor($originalClass, $initializer));
+        $classGenerator->addMethodFromGenerator(new StaticProxyConstructor($originalClass, $initializer));
 
         $classGenerator->addMethodFromGenerator(
             new MagicGet($originalClass, $initializer, $valueHolder, $publicProperties)
