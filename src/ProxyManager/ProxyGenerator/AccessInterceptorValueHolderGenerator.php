@@ -23,6 +23,7 @@ use ProxyManager\ProxyGenerator\AccessInterceptor\MethodGenerator\SetMethodPrefi
 use ProxyManager\ProxyGenerator\AccessInterceptor\MethodGenerator\SetMethodSuffixInterceptor;
 use ProxyManager\ProxyGenerator\AccessInterceptor\PropertyGenerator\MethodPrefixInterceptors;
 use ProxyManager\ProxyGenerator\AccessInterceptor\PropertyGenerator\MethodSuffixInterceptors;
+use ProxyManager\ProxyGenerator\AccessInterceptorValueHolder\MethodGenerator\Constructor;
 use ProxyManager\ProxyGenerator\AccessInterceptorValueHolder\MethodGenerator\InterceptedMethod;
 use ProxyManager\ProxyGenerator\AccessInterceptorValueHolder\MethodGenerator\MagicClone;
 use ProxyManager\ProxyGenerator\AccessInterceptorValueHolder\MethodGenerator\MagicGet;
@@ -86,6 +87,9 @@ class AccessInterceptorValueHolderGenerator implements ProxyGeneratorInterface
 
         $classGenerator->addMethodFromGenerator(
             new StaticProxyConstructor($originalClass, $valueHolder, $prefixInterceptors, $suffixInterceptors)
+        );
+        $classGenerator->addMethodFromGenerator(
+            Constructor::generateMethod($originalClass, $valueHolder)
         );
         $classGenerator->addMethodFromGenerator(
             new GetWrappedValueHolderValue($valueHolder)
