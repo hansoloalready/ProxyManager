@@ -18,7 +18,6 @@
 
 namespace ProxyManager\ProxyGenerator;
 
-use ProxyManager\ProxyGenerator\NullObject\MethodGenerator\Constructor;
 use ProxyManager\ProxyGenerator\NullObject\MethodGenerator\StaticProxyConstructor;
 use ProxyManager\ProxyGenerator\NullObject\MethodGenerator\NullObjectMethodInterceptor;
 use ProxyManager\ProxyGenerator\Util\ProxiedMethodsFilter;
